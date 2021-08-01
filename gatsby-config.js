@@ -31,5 +31,16 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
+    {
+      resolve: "gatsby-source-graphql",
+      options: {
+        typeName: "FAUNADB",
+        fieldName: "FaunaDB",
+        url: process.env.GRAPHQL_ENDPOINT,
+        headers: {
+          Authorization: `Bearer ${process.env.DEVELOPER_FAUNADB_SERVER_SECRET}`,
+        },
+      },
+    },
   ],
 }

@@ -1,0 +1,80 @@
+type Course {
+  title: String!
+  description: String
+  visible: Boolean!
+  author: User!
+  bookmarks: [Bookmark!] @relation
+}
+
+type Bookmark {
+  title: String
+  private: Boolean!
+  user: User!
+  course: Course!
+}
+
+type User {
+  name: String!
+  email: String!
+  role: Role!
+  courses: [Course!] @relation
+  bookmarks: [Bookmark!] @relation
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+  role: Role!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
+input LogoutInput {
+  allTokens: Boolean
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+type CourseUpdates @embedded {
+  title: String
+  description: String
+  visible: Boolean
+}
+
+type HistoryUpdate @embedded {
+  ts: Long!
+  action: String!
+  data: CourseUpdates
+}
+
+type HistoryPage @embedded {
+  data: [HistoryUpdate]
+}
+
+type Query {
+  allCourses: [Course!]
+  allBookmarks: [Bookmark!]
+  allUsers(role: Role): [User!]
+  allCoursesInReview(visible: Boolean = false): [Course!]
+  courseUpdateHistory(id: ID!): HistoryPage
+    @resolver(name: "course_update_history")
+}
+
+type Mutation {
+  createUser(data: CreateUserInput): User! @resolver(name: "create_user")
+  loginUser(data: LoginUserInput): AuthPayload! @resolver(name: "login_user")
+  logoutUser(data: LogoutInput): Boolean! @resolver(name: "logout_user")
+}
+
+enum Role {
+  AUTHOR
+  DEVELOPER
+  MANAGER
+}
