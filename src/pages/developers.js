@@ -69,8 +69,8 @@ const UsersList = ({ users }) => {
   ))
 }
 
-const DevelopersPage = ({ data: { FaunaDB } }) => {
-  const users = FaunaDB.allUsers.data
+const DevelopersPage = ({ data: { faunaDB } }) => {
+  const users = faunaDB.allUsers.data
 
   return (
     <Layout>
@@ -89,7 +89,7 @@ export default DevelopersPage
 // This query fetches data at build time and is part of a static page produced by Gatsby
 export const pageQuery = graphql`
   query {
-    FaunaDB {
+    faunaDB {
       allUsers(role: DEVELOPER) {
         data {
           _id

@@ -65,8 +65,8 @@ const CoursesListWithBookmarks = ({ courses }) => {
   )
 }
 
-const IndexPage = ({ data: { FaunaDB } }) => {
-  let courses = FaunaDB.allCourses.data
+const IndexPage = ({ data: { faunaDB } }) => {
+  let courses = faunaDB.allCourses.data
 
   return (
     <Layout>
@@ -85,7 +85,7 @@ export default IndexPage
 // This query fetches data at build time and is part of a static page produced by Gatsby
 export const pageQuery = graphql`
   query {
-    FaunaDB {
+    faunaDB {
       allCourses(_size: 10) {
         data {
           _id

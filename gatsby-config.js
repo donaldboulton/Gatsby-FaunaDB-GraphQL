@@ -35,7 +35,7 @@ module.exports = {
       resolve: "gatsby-source-graphql",
       options: {
         typeName: "FAUNADB",
-        fieldName: "FaunaDB",
+        fieldName: "faunaDB",
         url: process.env.GRAPHQL_ENDPOINT,
         headers: {
           Authorization: `Bearer ${process.env.DEVELOPER_FAUNADB_SERVER_SECRET}`,
